@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="spacenlichten_concept.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Send"
+       style="overflow:visible;">
+      <path
+         id="path3850"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="DotS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="DotS"
+       style="overflow:visible">
+      <path
+         id="path3884"
+         d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.2) translate(7.4, 1)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutM"
+       style="overflow:visible">
+      <path
+         id="path3962"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL"
+       style="overflow:visible">
+      <path
+         id="path3959"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3820"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="531.07794"
+     inkscape:cy="285.07447"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1278"
+     inkscape:window-height="786"
+     inkscape:window-x="0"
+     inkscape:window-y="12"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <rect
+       style="fill:#ffffff;fill-opacity:0;stroke:none"
+       id="rect2985"
+       width="354.28571"
+       height="168.57143"
+       x="-151.42857"
+       y="261.23734"
+       transform="translate(0,308.2677)" />
+    <g
+       id="g3761"
+       transform="translate(13.42857,86.470486)">
+      <rect
+         transform="translate(0,308.2677)"
+         y="312.66592"
+         x="38.57143"
+         height="72.857155"
+         width="130"
+         id="rect2987"
+         style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:8;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3757"
+         y="676.56219"
+         x="59.274555"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+         xml:space="preserve"><tspan
+           style="font-size:48px"
+           y="676.56219"
+           x="59.274555"
+           id="tspan3759"
+           sodipodi:role="line">JSON</tspan></text>
+    </g>
+    <g
+       id="g3796"
+       transform="translate(2.7221745e-8,63.517757)">
+      <rect
+         y="643.88635"
+         x="461.18109"
+         height="72.857155"
+         width="130"
+         id="rect2987-3"
+         style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:8;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3757-1"
+         y="699.51495"
+         x="479.01172"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+         xml:space="preserve"><tspan
+           style="font-size:48px"
+           y="699.51495"
+           x="479.01172"
+           id="tspan3759-6"
+           sodipodi:role="line">NODE</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0;marker-end:url(#DotS)"
+       d="m 624.57143,743.83269 168.57143,0"
+       id="path3811"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5181"
+       d="M 624.57143,743.83269 793.14286,926.68983"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0;marker-end:url(#DotS)"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g6942"
+       transform="translate(0,-8)">
+      <g
+         id="text3801"
+         style="font-size:91.37998199px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+         transform="matrix(0,-0.75560197,1.5284345,0,-81.499212,63.517746)">
+        <path
+           sodipodi:nodetypes="ccssccccssscccccssccccsscsccc"
+           inkscape:connector-curvature="0"
+           id="path3809"
+           style="font-size:328.96792603px;font-family:Courier New;-inkscape-font-specification:Courier New"
+           d="m -756.83491,550.90371 c -13.92129,-6e-5 -25.27238,-4.55121 -34.05333,-13.65345 -8.78113,-8.99526 -13.17164,-20.66762 -13.17156,-35.01709 l 0,-56.38074 c -8e-5,-11.45814 -3.90872,-20.39981 -11.72591,-26.82502 -7.81733,-6.42508 -18.633,-9.90537 -32.44703,-10.44088 l 0,-22.00615 c 13.92112,-0.53533 24.73678,-4.06916 32.44703,-10.60151 7.81719,-6.53212 11.72583,-15.3667 11.72591,-26.50376 l 0,-56.54136 c -8e-5,-14.67057 4.33689,-26.45001 13.01094,-35.33835 8.67385,-8.8879 20.07849,-13.33196 34.21395,-13.3322 l 320.49075,0 0,22.32741 -312.13805,0 c -9.74495,2.2e-4 -16.75907,2.35611 -21.04239,7.06767 -4.28354,4.71199 -6.42526,12.79697 -6.42515,24.25496 l 0,55.57759 c -1.1e-4,10.49454 -3.42686,19.75746 -10.28025,27.7888 -6.85359,7.92445 -15.79525,13.2252 -26.82502,15.90226 l 0,0.32125 c 10.92268,2.57015 19.8108,7.81735 26.66439,15.74163 6.96048,7.81734 10.44077,17.24089 10.44088,28.27068 l 0,55.73822 c -1.1e-4,11.35108 2.14161,19.38252 6.42515,24.09433 4.28332,4.81882 11.29744,7.22826 21.04239,7.2283 l 312.13805,0 0,22.32741 -320.49075,0" />
+      </g>
+      <g
+         transform="translate(-2.3170186e-5,75.469997)"
+         id="g6591">
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           x="526.18573"
+           y="375.21933"
+           id="text6571"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6573"
+             x="526.18573"
+             y="375.21933"
+             style="font-size:20px;text-align:center;text-anchor:middle">VIRTUAL IP MANAGEMENT &amp;  ASSIGMENT</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           x="526.27795"
+           y="471.2193"
+           id="text6575"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6577"
+             x="526.27795"
+             y="471.2193">VALIDATING JSON ACCORDING TO THE</tspan><tspan
+             sodipodi:role="line"
+             x="526.27795"
+             y="496.2193"
+             id="tspan6579">DEVICES TYPE &amp; PARSING IT</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           x="525.98578"
+           y="411.21933"
+           id="text6581"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6583"
+             x="525.98578"
+             y="411.21933">DRIVER MANAGEMENT FOR THE DIFFERENT</tspan><tspan
+             sodipodi:role="line"
+             x="525.98578"
+             y="436.21933"
+             id="tspan6585">DEVICES &amp; DEVICE TYPES</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           x="526.17792"
+           y="531.505"
+           id="text6587"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6589"
+             x="526.17792"
+             y="531.505">CONTROLLING THE DEVICE</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g6611"
+       transform="translate(17.118942,63.517746)">
+      <g
+         id="g6542">
+        <rect
+           y="644.39563"
+           x="815.69037"
+           height="71.8386"
+           width="167.55287"
+           id="rect6501"
+           style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:8;stroke-opacity:1" />
+        <text
+           sodipodi:linespacing="125%"
+           id="text6503"
+           y="699.51495"
+           x="834.78119"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           xml:space="preserve"><tspan
+             style="font-size:48px"
+             y="699.51495"
+             x="834.78119"
+             id="tspan6505"
+             sodipodi:role="line">LIGHT 1</tspan></text>
+      </g>
+      <g
+         id="g6558">
+        <rect
+           style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:8;stroke-opacity:1"
+           id="rect6549"
+           width="167.55287"
+           height="71.8386"
+           x="815.69037"
+           y="828.05328" />
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+           x="830.46118"
+           y="883.17261"
+           id="text6551"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6553"
+             x="830.46118"
+             y="883.17261"
+             style="font-size:48px">LIGHT 2</tspan></text>
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6603"
+         y="632.19965"
+         x="853.74652"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+         xml:space="preserve"><tspan
+           y="632.19965"
+           x="853.74652"
+           id="tspan6605"
+           sodipodi:role="line">10.23.42.60</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+         x="855.54651"
+         y="816.19965"
+         id="text6607"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan6609"
+           x="855.54651"
+           y="816.19965">10.23.42.61</tspan></text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path6625"
+       d="m 212.76889,743.83052 207.77275,0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8.63259554, 8.63259554;stroke-dashoffset:0;marker-end:url(#Arrow2Send)" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+       x="283.87262"
+       y="730.84937"
+       id="text6819"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6821"
+         x="283.87262"
+         y="730.84937">TCP/IP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Pressuru;-inkscape-font-specification:Pressuru"
+       x="66.676559"
+       y="693.51434"
+       id="text6835"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6837"
+         x="66.676559"
+         y="693.51434">{ &quot;on&quot;: true }</tspan></text>
+  </g>
+</svg>
