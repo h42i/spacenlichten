@@ -41,10 +41,10 @@ def bulb_handler_0(json):
 
 bulb_node = node.Node("wlp3s0", aliasing.IP)
 
-bulb_node.register_device("10.23.42.201", 8, bulb_handler_0())
-bulb_node.register_device("10.23.42.202", 8, bulb_handler_1())
-bulb_node.register_device("10.23.42.203", 8, bulb_handler_2())
-bulb_node.register_device("10.23.42.204", 8, bulb_handler_3())
+bulb_node.register_device("10.23.42.201", 8, bulb_handler_0)
+bulb_node.register_device("10.23.42.202", 8, bulb_handler_1)
+bulb_node.register_device("10.23.42.203", 8, bulb_handler_2)
+bulb_node.register_device("10.23.42.204", 8, bulb_handler_3)
 
 my_node.start()
 
