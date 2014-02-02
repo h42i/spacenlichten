@@ -1,16 +1,21 @@
 from spacenlichten import aliasing
 from spacenlichten import node
+from spacenlichten import api
+
+state = api.SpacenStrip(api.BINARY)
 
 def handler_1(json):
-    data = {}
+    state.feedback = True
+    state.on = [ True ]
     
-    data["on"] = True
-    data["color"] = {
-        "0": {"r": 0x10, "g": 100, "b": 100 },
-        "1": {"r": 0x10, "g": 100, "b": 100 }
-    }
+    other = api.SpacenStrip(api.BINARY)
     
-    return data
+    other.on = [ None, False, True ]
+    
+    state.merge(other)
+    
+    if state.feedback:
+        return state.to_json()
 
 def handler_2(json):
     return None
@@ -18,7 +23,9 @@ def handler_2(json):
 def handler_3(json):
     return None
 
-my_node = node.Node("wlp3s0", aliasing.IFCONFIG)
+my_node = node.Node("wlp3s0", aliasing.IP)
+
+#my_node.register_device("172.16.200.204", 8, handler_1)
 
 my_node.register_device("10.23.42.201", 8, handler_1)
 my_node.register_device("10.23.42.202", 8, handler_2)
