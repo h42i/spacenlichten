@@ -22,6 +22,8 @@ class NodeServerThroad(threading.Thread):
         self._callback = callback
         
         self._sock = None
+        self._buffer_size = 2**16
+        
         self._stopped = False
         
         try:
@@ -62,14 +64,14 @@ class NodeServerThroad(threading.Thread):
                 print("spacenlichten> Connection from " + addr[0] + " to " + self._ip + "...")
                 
                 # buffer size necessary to handle for example large pixel matrices
-                data = conn.recv(2**32)
+                data = conn.recv(_buffer_size)
                 dec_data = None
                 
                 feedback = None
                 enc_feedback = None
                 
                 try:
-                    dec_data = str(data, "utf-8")
+                    dec_data = data.decode("utf-8")
                 except:
                     error = sys.exc_info()[0]
                     
@@ -81,8 +83,8 @@ class NodeServerThroad(threading.Thread):
                         feedback = self._callback(dec_data)
                     
                     if feedback != None:
-                        enc_feedback = bytes(feedback, "utf-8")
-                except socket.error:
+                        enc_feedback = feedback.encode("utf-8")
+                except:
                     error = sys.exc_info()[0]
                     
                     print("spacenlichten> It seems the handler is not even able to construct correct feedback.")

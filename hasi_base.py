@@ -13,14 +13,22 @@ gpio.setmode(gpio.BOARD)
 # set up gpio pins for output
 for pin in bulb_pins:
     gpio.setup(pin, gpio.OUT)
+    gpio.output(pin, gpio.HIGH)
+
 
 def bulb_handler(json, index):
+    """
+    Handles 4 relais to control lights.
+    LOW switches the relais 'on',
+    HIGH switches it 'off'.
+    """
+    
     change = api.SpacenBulb(json)
     
     if change.on:
-        gpio.output(bulb_pins[bulb_pins], gpio.HIGH)
+        gpio.output(bulb_pins[index], gpio.LOW)
     elif not change.on:
-        gpio.output(bulb_pins[bulb_pins], gpio.LOW)
+        gpio.output(bulb_pins[index], gpio.HIGH)
     
     bulb_states[index].merge(change)
     
@@ -46,8 +54,11 @@ bulb_node.register_device("10.23.42.202", 8, bulb_handler_1)
 bulb_node.register_device("10.23.42.203", 8, bulb_handler_2)
 bulb_node.register_device("10.23.42.204", 8, bulb_handler_3)
 
-my_node.start()
+bulb_node.start()
 
-wait = input()
+try:
+    wait = input()
+except:
+    pass
 
-my_node.stop()
+bulb_node.stop()
