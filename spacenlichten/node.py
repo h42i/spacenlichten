@@ -2,7 +2,7 @@ import sys
 import threading
 import socket
 import time
-
+import re
 import ipaddress
 
 from spacenlichten import aliasing
@@ -64,7 +64,7 @@ class NodeServerThroad(threading.Thread):
                 print("spacenlichten> Connection from " + addr[0] + " to " + self._ip + "...")
                 
                 # buffer size necessary to handle for example large pixel matrices
-                data = conn.recv(_buffer_size)
+                data = conn.recv(self._buffer_size)
                 dec_data = None
                 
                 feedback = None
@@ -74,18 +74,16 @@ class NodeServerThroad(threading.Thread):
                     dec_data = data.decode("utf-8")
                     
                     # strip http header if present
-                    first_line_match = re.search("/^(.*)$/m", ec_data)
+                    first_line = dec_data.split("\n")[0]
                     
-                    if first_line_match:
-                        first_line = first_line_match.group(0)
-                        
-                        http_match = re.search("HTTP", first_line)
+                    http_match = re.search("HTTP", first_line)
+                    
+                    if http_match:
                         http_strip_match = re.search("\r?\n(\r?\n)+", dec_data, re.MULTILINE)
                         
                         if http_strip_match:
-                            dec_data = dec_data[match.end():]
-                    
-                except:
+                            dec_data = dec_data[http_strip_match.end():]
+                except socket.error:
                     error = sys.exc_info()[0]
                     
                     print("spacenlichten> Invalid data. I will not bother the handler with this mess.")
