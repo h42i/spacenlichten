@@ -72,6 +72,19 @@ class NodeServerThroad(threading.Thread):
                 
                 try:
                     dec_data = data.decode("utf-8")
+                    
+                    # strip http header if present
+                    first_line_match = re.search("/^(.*)$/m", ec_data)
+                    
+                    if first_line_match:
+                        first_line = first_line_match.group(0)
+                        
+                        http_match = re.search("HTTP", first_line)
+                        http_strip_match = re.search("\r?\n(\r?\n)+", dec_data, re.MULTILINE)
+                        
+                        if http_strip_match:
+                            dec_data = dec_data[match.end():]
+                    
                 except:
                     error = sys.exc_info()[0]
                     
