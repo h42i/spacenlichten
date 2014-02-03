@@ -2,6 +2,7 @@ import sys
 import threading
 import socket
 import time
+import datetime
 import re
 import ipaddress
 
@@ -10,6 +11,11 @@ from spacenlichten import api
 
 class NodeError(Exception):
     pass
+
+def _log(string):
+    now_string = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    
+    print("[" + now_string + "] spacenlichten> " + string)
 
 class NodeServerThroad(threading.Thread):
     def __init__(self, ip, port, callback):
@@ -35,7 +41,7 @@ class NodeServerThroad(threading.Thread):
             elif self_.ip_version == 6:
                 # UNTESTED
                 if not socket.has_ipv6:
-                    print("spacenlichten> No IPv6 in here, dude. Go play with v4 again.")
+                    _log("No IPv6 in here, dude. Go play with v4 again.")
                 
                 addr_info = socket.getaddrinfo(self._ip, self._port, 0, 0, socket.SOL_TCP, socket.AF_INET6)
                 
@@ -46,22 +52,22 @@ class NodeServerThroad(threading.Thread):
             
             self._sock.listen(3)
         except socket.error:
-            print("spacenlichten> No socket for you. Sockets are out. (" + str(socket.error) + ")")
+            _log("No socket for you. Sockets are out. (" + str(socket.error) + ")")
             
             self._stopped = True
         except:
-            print("spacenlichten> Something really went wrong.")
+            _log("Something really went wrong.")
             
             self._stopped = True
     
     def run(self):
         while not self._stopped:
             try:
-                print("spacenlichten> Accepting clients...")
+                _log("Accepting clients...")
                 
                 conn, addr = self._sock.accept()
                 
-                print("spacenlichten> Connection from " + addr[0] + " to " + self._ip + "...")
+                _log("Connection from " + addr[0] + " to " + self._ip + "...")
                 
                 # buffer size necessary to handle for example large pixel matrices
                 data = conn.recv(self._buffer_size)
@@ -69,6 +75,8 @@ class NodeServerThroad(threading.Thread):
                 
                 feedback = None
                 enc_feedback = None
+                
+                print(time.time())
                 
                 try:
                     dec_data = data.decode("utf-8")
@@ -86,8 +94,8 @@ class NodeServerThroad(threading.Thread):
                 except socket.error:
                     error = sys.exc_info()[0]
                     
-                    print("spacenlichten> Invalid data. I will not bother the handler with this mess.")
-                    print("spacenlichten>>> " + str(error))
+                    _log("Invalid data. I will not bother the handler with this mess.")
+                    _log(str(error))
                 
                 try:
                     if dec_data != None:
@@ -98,8 +106,10 @@ class NodeServerThroad(threading.Thread):
                 except:
                     error = sys.exc_info()[0]
                     
-                    print("spacenlichten> It seems the handler is not even able to construct correct feedback.")
-                    print("spacenlichten>>> " + str(error))
+                    _log("It seems the handler is not even able to construct correct feedback.")
+                    _log(str(error))
+                
+                print(time.time())
                 
                 try:
                     if enc_feedback != None:
@@ -107,25 +117,33 @@ class NodeServerThroad(threading.Thread):
                 except:
                     error = sys.exc_info()[0]
                     
-                    print("spacenlichten> Okay, okay. PANIC! I wasn't able to answer the client.")
-                    print("spacenlichten>>> " + str(error))
+                    _log("Okay, okay. PANIC! I wasn't able to answer the client.")
+                    _log(str(error))
+                
+                print(time.time())
                 
                 conn.close()
+                
+                print(time.time())
             except socket.error:
-                # uhm. well...
+                # uhm. well, fuck...
                 error= sys.exc_info()[0]
                 
-                print("spacenlichten>>> " + str(error))
+                _log(str(error))
         
         if self._sock != None:
             self._sock.close()
+        
+        print(time.time())
     
     def terminate(self):
         self._stopped = True
         self.join()
 
 class Node:
-    """Node server managing the different interfaces"""
+    """
+    Node server managing the different interfaces
+    """
     
     def __init__(self, iface, iface_tool):
         self._iface = iface
@@ -136,11 +154,11 @@ class Node:
         self._node_threads = []
     
     def register_device(self, ip, prefix_len, callback):
-        print("spacenlichten> Aliasing ip " + ip + ".")
+        _log("Aliasing ip " + ip + ".")
         
         self._alias_ctrl.add_alias(ip, prefix_len)
         
-        print("spacenlichten> Starting a node server on " + ip + ".")
+        _log("Starting a node server on " + ip + ".")
         
         dev_server = NodeServerThroad(ip, 20000, callback)
         
