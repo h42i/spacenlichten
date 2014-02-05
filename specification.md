@@ -6,7 +6,9 @@
 }
 ```
 
-#Control:
+Das Feld "version" enthält als Wert die verwendete Protokollversion. 
+
+#Steuerung
 
 ```JSON
 {
@@ -15,7 +17,15 @@
 }
 ```
 
-#Binary:
+Solange "feedback" den Wert true hat, wird auf jede Anfrage mit dem vollständigen aktuellen Zustand geantwortet. Solange "latch" den Wert false hat, werden ankommende Änderungen des sichbaren Zustands gepuffert zurückgehalten, andernfalls werden alle Zustandsänderungen übernommen. 
+
+#Binär
+
+```JSON
+{
+    "on": BOOLEAN
+}
+```
 
 ```JSON
 {
@@ -34,7 +44,13 @@
 }
 ```
 
-#Monochrome:
+#Monochrom
+
+```JSON
+{
+    "intensity": INTEGER
+}
+```
 
 ```JSON
 {
@@ -53,7 +69,13 @@
 }
 ```
 
-#RGB:
+#RGB
+
+```JSON
+{
+    "color": { "r": INTEGER, "g": INTEGER, "b": INTEGER }
+}
+```
 
 ```JSON
 {
