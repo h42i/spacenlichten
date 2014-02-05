@@ -54,7 +54,7 @@ Solange "feedback" den Wert true hat, wird auf jede Anfrage mit dem vollständig
 
 ```JSON
 {
-    "intensity": { "0": INTEGER, "1": INTEGER, "2": INTEGER... }
+    "intensity": { "0": INTEGER, "1": INTEGER, "2": INTEGER, ... }
 }
 ```
 
