@@ -2,7 +2,7 @@
 
 ```JSON
 {
-    "feedback": BOOLEAN
+    "feedback": BOOLEAN,
     "latch": BOOLEAN
 }
 ```
