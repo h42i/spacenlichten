@@ -76,8 +76,6 @@ class NodeServerThroad(threading.Thread):
                 feedback = None
                 enc_feedback = None
                 
-                print(time.time())
-                
                 try:
                     dec_data = data.decode("utf-8")
                     
@@ -109,8 +107,6 @@ class NodeServerThroad(threading.Thread):
                     _log("It seems the handler is not even able to construct correct feedback.")
                     _log(str(error))
                 
-                print(time.time())
-                
                 try:
                     if enc_feedback != None:
                         conn.send(enc_feedback)
@@ -120,11 +116,7 @@ class NodeServerThroad(threading.Thread):
                     _log("Okay, okay. PANIC! I wasn't able to answer the client.")
                     _log(str(error))
                 
-                print(time.time())
-                
                 conn.close()
-                
-                print(time.time())
             except socket.error:
                 # uhm. well, fuck...
                 error= sys.exc_info()[0]
@@ -133,8 +125,6 @@ class NodeServerThroad(threading.Thread):
         
         if self._sock != None:
             self._sock.close()
-        
-        print(time.time())
     
     def terminate(self):
         self._stopped = True
