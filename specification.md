@@ -66,13 +66,13 @@
             "1": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             "2": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             ...
-        }
+        },
         "1": {
             "0": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             "1": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             "2": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             ...
-        }
+        },
         "2": {
             "0": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
             "1": { "r": INTEGER, "g": INTEGER, "b": INTEGER },
