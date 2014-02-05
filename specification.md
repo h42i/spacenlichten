@@ -1,4 +1,12 @@
-#Meta:
+#Meta
+
+```JSON
+{
+    "version": STRING
+}
+```
+
+#Control:
 
 ```JSON
 {
