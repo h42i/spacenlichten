@@ -2,7 +2,7 @@
 
 ```JSON
 {
-    "version": STRING,
+    "version": STRING
 }
 ```
 
