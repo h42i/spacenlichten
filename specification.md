@@ -1,4 +1,16 @@
-#Meta
+#Basis
+
+Grundlegend hat jede logische Geräteeinheit eine eigene IP-Adresse und muss ein UDP-Server euf Port 20000 bereitstellen.
+Ein TCP-Server ist optional, aber wünschenswert.
+
+Einschränkungen bei UDP:
+* JSON-Pakete dürfen die Payload-Größe eines UDP-Pakets nicht übersteigen. Falls mehr Daten gesendet werden müssen, kann das JSON-Paket einfach in mehrere aufgesplittet werden.
+* Bei Serverantworten (z.B. wenn "feedback" den Wert true hat) sind analog gestückelt.
+* Bei einer Erweiterung des Protokolls für Aktoren, müssen diese broadcasten.
+
+#Protokoll
+
+##Meta
 
 ```JSON
 {
@@ -6,9 +18,10 @@
 }
 ```
 
-Das Feld "version" enthält als Wert die verwendete Protokollversion. 
+Das Feld "version" enthält als Wert die verwendete Protokollversion.
+Noch ist keine fertige Version vorhanden. Bisherige Spezifikationen sind nicht verlässlich.
 
-#Geräteinformationen
+##Geräteinformationen
 
 ```JSON
 {
@@ -24,7 +37,7 @@ Das Feld "version" enthält als Wert die verwendete Protokollversion.
 ```
 Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus ("binary", "monochrome", "rgb"), die Dimension und die Auflösung des Geräts an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
 
-#Steuerung
+##Steuerung
 
 ```JSON
 {
@@ -35,7 +48,7 @@ Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimens
 
 Solange "feedback" den Wert true hat, wird auf jede Anfrage mit dem vollständigen aktuellen Zustand geantwortet. Solange "latch" den Wert false hat, werden ankommende Änderungen des sichbaren Zustands gepuffert zurückgehalten, andernfalls werden alle Zustandsänderungen übernommen. 
 
-#Binär
+##Binär
 
 ```JSON
 {
@@ -60,7 +73,7 @@ Solange "feedback" den Wert true hat, wird auf jede Anfrage mit dem vollständig
 }
 ```
 
-#Monochrom
+##Monochrom
 
 ```JSON
 {
@@ -85,7 +98,7 @@ Solange "feedback" den Wert true hat, wird auf jede Anfrage mit dem vollständig
 }
 ```
 
-#RGB
+##RGB
 
 ```JSON
 {
