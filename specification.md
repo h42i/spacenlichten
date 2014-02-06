@@ -10,6 +10,8 @@ Einschränkungen bei UDP:
 
 #Protokoll
 
+Spacenlichten arbeitet zustandsbasiert. Im Umkehrschluss werden sowohl auf den Anfrage- als auch auf den Antwortkanälen nur Zustandsänderungen versendet, mit der Ausnahme, dass wenn "feedback" den Wert true hat, auf jede Anfrage mit dem vollständigen Zustand des angefragten Gerätes geantwortet wird.
+
 ##Meta
 
 ```JSON
