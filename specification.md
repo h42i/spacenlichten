@@ -27,7 +27,14 @@ Noch ist keine fertige Version vorhanden. Bisherige Spezifikationen sind nicht v
 
 ```JSON
 {
-    "name": STRING,
+    "name": STRING
+}
+```
+
+Das "name" ist eine eindeutige Gerätekennung.
+
+```JSON
+{
     "mode": STRING,
     "dimension": INTEGER,
     "resolution": {
@@ -37,7 +44,7 @@ Noch ist keine fertige Version vorhanden. Bisherige Spezifikationen sind nicht v
     }
 }
 ```
-Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus ("binary", "monochrome", "rgb"), die Dimension und die Auflösung des Geräts an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
+Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus ("binary", "monochrome", "rgb"), die Dimension und die Auflösung des Geräts an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
 
 ##Steuerung
 
