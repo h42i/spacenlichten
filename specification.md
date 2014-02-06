@@ -2,11 +2,28 @@
 
 ```JSON
 {
-    "version": STRING
+    "version": STRING,
 }
 ```
 
 Das Feld "version" enthält als Wert die verwendete Protokollversion. 
+
+#Geräteinformationen
+
+```JSON
+{
+    "name": STRING,
+    "mode": STRING,
+    "dimension": INTEGER,
+    "resolution": {
+        "x": INTEGER,
+        "y": INTEGER,
+        "z": INTEGER
+    }
+}
+```
+Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus (binär, monochrom, rgb), die Dimension und die Auflösung des Devices an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
+
 
 #Steuerung
 
