@@ -22,7 +22,7 @@ Das Feld "version" enthält als Wert die verwendete Protokollversion.
     }
 }
 ```
-Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus ("binary", "monochrome", "rgb"), die Dimension und die Auflösung des Devices an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
+Das "name" ist eine eindeutige Gerätekennung. Die beiden Felder "mode", "dimension" und "resolution" geben den Lichtmodus ("binary", "monochrome", "rgb"), die Dimension und die Auflösung des Geräts an. Falls die Dimension 0 ist, entfällt das Feld "resolution".
 
 #Steuerung
 
