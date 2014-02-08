@@ -1,6 +1,32 @@
+#Konzeption
+
+Spacenlichten arbeitet zustandsbasiert. Das heißt, dass jedes Device einen 
+festen Zustand hat, der schreibgeschütze und schreibbare Felder enthalten kann.
+
+Es existieren zwei Klassen von Devices: Sensoren und Aktoren.
+
+##Aktoren
+
+Aktoren sind abstrakt gesehen Geräte, die ein Signal im Meatspace generieren.
+Die einfachste Variante eines Aktors ist z.B. eine Lampe.
+
+##Sensoren
+
+Sensoren sind im Prinzip jede Art von HID oder Analog-Digital-Wandlern.
+Einfachste Variante: Lichtschalter.
+
+Sensoren unterteilen sich in passive und aktive Sensoren. Aktive Sensoren sind
+solche, die eine Zustandsänderung sofort publizieren (per Broadcast oder an 
+ein festgelegtes Device). Passive Sensoren senden ihren Zustand nur auf Anfrage.
+
+##Hybride
+
+
+
 #Basis
 
-Grundlegend hat jede logische Geräteeinheit eine eigene IP-Adresse und muss ein UDP-Server euf Port 20000 bereitstellen.
+Grundlegend hat jede logische Geräteeinheit eine eigene IP-Adresse und muss ein
+UDP-Server euf Port 20000 bereitstellen.
 Ein TCP-Server ist optional, aber wünschenswert.
 
 Einschränkungen bei UDP:
@@ -8,9 +34,12 @@ Einschränkungen bei UDP:
 * Bei Serverantworten (z.B. wenn "feedback" den Wert true hat) sind analog gestückelt.
 * Bei einer Erweiterung des Protokolls für Aktoren, müssen diese broadcasten.
 
+
+
 #Protokoll
 
-Spacenlichten arbeitet zustandsbasiert. Im Umkehrschluss werden sowohl auf den Anfrage- als auch auf den Antwortkanälen nur Zustandsänderungen versendet, mit der Ausnahme, dass wenn "feedback" den Wert true hat, auf jede Anfrage mit dem vollständigen Zustand des angefragten Gerätes geantwortet wird.
+ Im Umkehrschluss werden sowohl auf den 
+Anfrage- als auch auf den Antwortkanälen nur Zustandsänderungen versendet, mit der Ausnahme, dass wenn "feedback" den Wert true hat, auf jede Anfrage mit dem vollständigen Zustand des angefragten Gerätes geantwortet wird.
 
 ##Meta
 
