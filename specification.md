@@ -1,5 +1,8 @@
 #Konzeption
 
+In Spacenlichten ist alles ein Device, egal ob Lampe, Schalter, Website zur 
+Steuerung oder Anzeigetafel.
+
 Spacenlichten arbeitet zustandsbasiert. Das heißt, dass jedes Device einen 
 festen Zustand hat, der schreibgeschütze und schreibbare Felder enthalten kann.
 
@@ -21,9 +24,13 @@ ein festgelegtes Device). Passive Sensoren senden ihren Zustand nur auf Anfrage.
 
 ##Hybride
 
+In bestimmten Fällen müssen Devices sowohl die Funktionalität von Sensoren als 
+auch Aktoren bereitstellen. Das ist beispielsweise der Fall, wenn der aktuelle 
+Zustand einer Lampe abgefragt werden soll. Da die Aufgaben von Sensoren und 
+Aktoren jedoch immer orthogonal zueinander ablaufen, kann das Device logisch 
+als zwei getrennte Devices aufgefasst werden.
 
-
-#Basis
+#Implementierung
 
 Grundlegend hat jede logische Geräteeinheit eine eigene IP-Adresse und muss ein
 UDP-Server euf Port 20000 bereitstellen.
