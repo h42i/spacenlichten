@@ -31,7 +31,7 @@ Noch ist keine fertige Version vorhanden. Bisherige Spezifikationen sind nicht v
 }
 ```
 
-Das "name" ist eine eindeutige Gerätekennung.
+Das Feld "name" ist eine eindeutige Gerätekennung.
 
 ```JSON
 {

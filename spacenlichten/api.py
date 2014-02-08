@@ -1,5 +1,7 @@
 import json
 
+_api_version = "0.1.23a"
+
 RGB = 0
 MONOCHROME = 1
 BINARY = 2
@@ -35,6 +37,8 @@ class SpacenObject:
     
     def _to_json_helper(self):
         json_dict = {}
+        
+        json_dict["version"] = _api_version
         
         if self.feedback != None:
             json_dict["feedback"] = self.feedback
