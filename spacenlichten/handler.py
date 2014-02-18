@@ -34,6 +34,8 @@ class Handler(threading.Thread):
         
         self._udp_server = udp.UDPServer(self.ip, 20000, self.receive)
         self._tcp_server = tcp.TCPServer(self.ip, 20000, self.receive)
+        
+        self._stopped = False
     
     def _common_broadcast(self, string):
         self._udp_server._broadcast_sender(string)
@@ -51,5 +53,9 @@ class Handler(threading.Thread):
         self._udp_server.start()
         self._tcp_server.start()
         
-        while True:
+        while not self._stopped:
             self._mod.run()
+    
+    def terminate(self):
+        self._stopped = True
+        self.join()

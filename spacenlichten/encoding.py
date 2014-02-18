@@ -1,6 +1,6 @@
 import re
 
-def _decode_data(data):
+def decode_data(data):
     """
     Generate a python string from utf-8 encoded data and
     strip the http header if present.
@@ -23,7 +23,7 @@ def _decode_data(data):
     
     return dec_data
 
-def _encode_data(string):
+def encode_data(string):
     """
     Generate utf-8 encoded data from a python string.
     """

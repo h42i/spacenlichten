@@ -51,12 +51,9 @@ class TCPServer(threading.Thread):
             self._sock.listen(3)
         except socket.error:
             logger.log("[TCP] No socket for you. Sockets are out.")
-            logger.log("[TCP] " + str(socket.error))
-            
             self._stopped = True
         except:
             logger.log("[TCP] Something really went wrong.")
-            
             self._stopped = True
         
         while not self._stopped:
@@ -73,7 +70,6 @@ class TCPServer(threading.Thread):
             except socket.error:
                 # uhm. well, fuck...
                 error = sys.exc_info()[0]
-                
                 logger.log("[TCP] " + str(error))
         
         if self._sock != None:
@@ -84,7 +80,7 @@ class TCPServer(threading.Thread):
             enc_data = None
             
             try:
-                enc_data = _encode_data(string)
+                enc_data = _encoding.encode_data(string)
             except:
                 logger.log("[TCP] Could not encode the string given by the client.")
             
@@ -122,31 +118,32 @@ class TCPServerConnection(threading.Thread):
         dec_data = None
         
         try:
-            dec_data = encoding._decode_data(data)
+            dec_data = encoding._encoding.decode_data(data)
         except:
             error = sys.exc_info()[0]
-            
-            logger.log("Invalid data. I will not bother the handler with this mess.")
-            logger.log(str(error))
+            logger.log("[TCP] Invalid data. I will not bother the handler with this mess.")
         
         if dec_data != None:
             try:
                 self._callback(dec_data, self._sender_raw)
             except socket.error:
                 error = sys.exc_info()[0]
-                
                 logger.log("[TCP] Could not call the handler. Meh.")
-                logger.log("[TCP] " + str(error))
         
         self._conn.close()
         
         self._conn_threads.remove(self)
     
-    def _sender_raw(self, enc_data):
+    def _sender(self, enc_data):
+        try:
+            enc_data = _encoding.encode_data(string)
+        except:
+            logger.log("[TCP] Could not encode the string given by the handler.")
+        
         try:
             self._conn.send(enc_data)
         except socket.error:
-            logger.log("[TCP] Could not send data. We're fucked.")
+            logger.log("[TCP] Could not send data. Mimimi!")
     
     def terminate(self):
         self._conn.close()

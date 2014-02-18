@@ -45,4 +45,4 @@ class Node:
     
     def stop(self):
         for handler in self._handlers:
-            handler.join()
+            handler.terminate()

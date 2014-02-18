@@ -52,12 +52,9 @@ class UDPServer(threading.Thread):
                 raise UDPError("Is this even IP?!")
         except socket.error:
             logger.log("[UDP] No socket for you. Sockets are out.")
-            logger.log("[UDP] " + str(socket.error))
-            
             self._stopped = True
         except:
             logger.log("[UDP] Something really went wrong.")
-            
             self._stopped = True
         
         while not self._stopped:
@@ -65,31 +62,26 @@ class UDPServer(threading.Thread):
                 # buffer size necessary to handle for example large pixel matrices
                 data, self._current_addr = self._sock.recvfrom(self._buffer_size)
                 
-                logger.log("[UDP] Connection from " + addr[0] + " to " + self._ip + "...")
+                logger.log("[UDP] Incomingn data from " + addr[0] + " to " + self._ip + "...")
                 
                 dec_data = None
                 
                 try:
-                    dec_data = encoding._decode_data(data)
+                    dec_data = encoding._encoding.decode_data(data)
                 except:
                     error = sys.exc_info()[0]
                     
                     logger.log("Invalid data. I will not bother the handler with this mess.")
-                    logger.log(str(error))
                 
                 if dec_data != None:
                     try:
                         self._callback(dec_data, self._sender)
                     except:
                         error = sys.exc_info()[0]
-                        
                         logger.log("[UDP] Could not call the handler. Meh.")
-                        logger.log("[UDP] " + str(error))
             except:
                 # uhm. well, fuck...
                 error = sys.exc_info()[0]
-                
-                logger.log("[UDP] " + str(error))
         
         if self._sock != None:
             self._sock.close()
@@ -99,9 +91,9 @@ class UDPServer(threading.Thread):
             enc_data = None
             
             try:
-                enc_data = encoding._encode_data(string)
+                enc_data = encoding.encoding.encode_data(string)
             except:
-                logger.log("[UDP] Could not encode the string given by the client.")
+                logger.log("[UDP] Could not encode the string given by the handler.")
             
             try:
                 self._sock.sendto(enc_data, (self._current_addr, self._port))
@@ -113,9 +105,9 @@ class UDPServer(threading.Thread):
             enc_data = None
             
             try:
-                enc_data = encoding._encode_data(string)
+                enc_data = encoding.encoding.encode_data(string)
             except socket.error:
-                logger.log("[UDP] Could not encode the string given by the client.")
+                logger.log("[UDP] Could not encode the string given by the handler.")
             
             try:
                 self._sock.sendto(enc_data, ("<broadcast>", self._port))
