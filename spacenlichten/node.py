@@ -8,7 +8,6 @@ import ipaddress
 import functools
 
 from spacenlichten import aliasing
-from spacenlichten import api
 
 class NodeError(Exception):
     pass
@@ -26,24 +25,18 @@ def _decode_data(data):
     
     dec_data = None
     
-    try:
-        dec_data = data.decode("utf-8")
+    dec_data = data.decode("utf-8")
+    
+    # strip http header if present
+    first_line = dec_data.split("\n")[0]
+    
+    http_match = re.search("HTTP", first_line)
+    
+    if http_match:
+        http_strip_match = re.search("\r?\n(\r?\n)+", dec_data, re.MULTILINE)
         
-        # strip http header if present
-        first_line = dec_data.split("\n")[0]
-        
-        http_match = re.search("HTTP", first_line)
-                    
-        if http_match:
-            http_strip_match = re.search("\r?\n(\r?\n)+", dec_data, re.MULTILINE)
-            
-            if http_strip_match:
-                dec_data = dec_data[http_strip_match.end():]
-    except:
-        error = sys.exc_info()[0]
-        
-        _log("Invalid data. I will not bother the handler with this mess.")
-        _log(str(error))
+        if http_strip_match:
+            dec_data = dec_data[http_strip_match.end():]
     
     return dec_data
 
@@ -112,7 +105,15 @@ class UDPServerThread(threading.Thread):
                 
                 _log("[UDP] Connection from " + addr[0] + " to " + self._ip + "...")
                 
-                dec_data = _decode_data(data)
+                dec_data = None
+                
+                try:
+                    dec_data = _decode_data(data)
+                except:
+                    error = sys.exc_info()[0]
+                    
+                    _log("Invalid data. I will not bother the handler with this mess.")
+                    _log(str(error))
                 
                 if dec_data != None:
                     try:
@@ -218,11 +219,9 @@ class TCPServerThread(threading.Thread):
                 _log("[TCP] Connection from " + addr[0] + " to " + self._ip + "...")
                 
                 conn_thread = TCPServerConnectionThread(self._conn_threads, conn, self._callback)
-                print('len before: ' + str(len(self._conn_threads)))
+                
                 self._conn_threads.append(conn_thread)
-                self._conn_threads.append(conn_thread)
-                self._conn_threads.append(conn_thread)
-                print('len after: ' + str(len(self._conn_threads)))
+                
                 conn_thread.start()
             except:
                 # uhm. well, fuck...
@@ -274,7 +273,15 @@ class TCPServerConnectionThread(threading.Thread):
         # buffer size necessary to handle for example large pixel matrices
         data = self._conn.recv(self._buffer_size)
         
-        dec_data = _decode_data(data)
+        dec_data = None
+        
+        try:
+            dec_data = _decode_data(data)
+        except:
+            error = sys.exc_info()[0]
+            
+            _log("Invalid data. I will not bother the handler with this mess.")
+            _log(str(error))
         
         if dec_data != None:
             try:

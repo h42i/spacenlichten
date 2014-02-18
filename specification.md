@@ -1,7 +1,6 @@
 #Konzeption
 
-In Spacenlichten ist alles ein Device, egal ob Lampe, Schalter, Website zur 
-Steuerung oder Anzeigetafel.
+In Spacenlichten ist alles ein Device, egal ob Lampe, Schalter oder Anzeigetafel.
 
 Spacenlichten arbeitet zustandsbasiert. Das heißt, dass jedes Device einen 
 festen Zustand hat, der schreibgeschütze und schreibbare Felder enthalten kann.
@@ -72,7 +71,6 @@ Das Feld "name" ist eine eindeutige Gerätekennung.
 ```JSON
 {
     "mode": STRING,
-    "dimension": INTEGER,
     "resolution": {
         "x": INTEGER,
         "y": INTEGER,
