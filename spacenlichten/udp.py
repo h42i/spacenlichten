@@ -7,8 +7,8 @@ import datetime
 import ipaddress
 import functools
 
-from spacenlichten import logger
-from spacenlichten import encoding
+import logger
+import encoding
 
 class UDPError(Exception):
     pass
@@ -67,7 +67,7 @@ class UDPServer(threading.Thread):
                 dec_data = None
                 
                 try:
-                    dec_data = encoding._encoding.decode_data(data)
+                    dec_data = encoding.decode_data(data)
                 except:
                     error = sys.exc_info()[0]
                     
@@ -91,7 +91,7 @@ class UDPServer(threading.Thread):
             enc_data = None
             
             try:
-                enc_data = encoding.encoding.encode_data(string)
+                enc_data = encoding.encode_data(string)
             except:
                 logger.log("[UDP] Could not encode the string given by the handler.")
             
@@ -105,7 +105,7 @@ class UDPServer(threading.Thread):
             enc_data = None
             
             try:
-                enc_data = encoding.encoding.encode_data(string)
+                enc_data = encoding.encode_data(string)
             except socket.error:
                 logger.log("[UDP] Could not encode the string given by the handler.")
             

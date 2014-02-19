@@ -7,8 +7,8 @@ import datetime
 import ipaddress
 import functools
 
-from spacenlichten import logger
-from spacenlichten import encoding
+import logger
+import encoding
 
 class TCPError(Exception):
     pass
@@ -77,16 +77,9 @@ class TCPServer(threading.Thread):
     
     def _broadcast_sender(self, string):
         if self._sock != None:
-            enc_data = None
-            
-            try:
-                enc_data = _encoding.encode_data(string)
-            except:
-                logger.log("[TCP] Could not encode the string given by the client.")
-            
             for conn_thread in self._conn_threads:
                 try:
-                    conn_thread._sender_raw(enc_data)
+                    conn_thread._sender(string)
                 except:
                     logger.log("[TCP] Could not send data to client while broadcasting. Shit.")
     
@@ -118,14 +111,14 @@ class TCPServerConnection(threading.Thread):
         dec_data = None
         
         try:
-            dec_data = encoding._encoding.decode_data(data)
+            dec_data = encoding.decode_data(data)
         except:
             error = sys.exc_info()[0]
             logger.log("[TCP] Invalid data. I will not bother the handler with this mess.")
         
         if dec_data != None:
             try:
-                self._callback(dec_data, self._sender_raw)
+                self._callback(dec_data, self._sender)
             except socket.error:
                 error = sys.exc_info()[0]
                 logger.log("[TCP] Could not call the handler. Meh.")
@@ -134,9 +127,9 @@ class TCPServerConnection(threading.Thread):
         
         self._conn_threads.remove(self)
     
-    def _sender(self, enc_data):
+    def _sender(self, string):
         try:
-            enc_data = _encoding.encode_data(string)
+            enc_data = encoding.encode_data(string)
         except:
             logger.log("[TCP] Could not encode the string given by the handler.")
         

@@ -1,0 +1,29 @@
+#!/usr/bin/python
+import sys
+import os
+import argparse
+import subprocess
+
+if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser(prog='spacenctl',
+                                         formatter_class=lambda prog:
+                                             argparse.HelpFormatter(prog, max_help_position=42))
+    
+    arg_parser.add_argument("command",
+                            help="command to be executed: enable/disable/start/stop")
+    
+    arg_parser.add_argument("handler",
+                            help="handler on which the command is executed")
+    
+    args = arg_parser.parse_args()
+    
+    if args.command ==  "start":
+        pass
+    elif args.command == "stop":
+        pass
+    elif args.command == "enable":
+        pass
+    elif args.command == "disable":
+        pass
+    else:
+        print("unknown command")
