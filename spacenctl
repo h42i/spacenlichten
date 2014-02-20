@@ -3,6 +3,8 @@ import sys
 import os
 import argparse
 import subprocess
+import socket
+import json
 
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser(prog='spacenctl',
@@ -17,10 +19,17 @@ if __name__ == "__main__":
     
     args = arg_parser.parse_args()
     
+    dummy_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    dummy_conn.connect(("localhost", 3001))
+    
     if args.command ==  "start":
-        pass
+        data = { "command": "start", "handler": args.handler }
+        dummy_conn.send(json.dumps(data).encode("utf-8"))
+        dummy_conn.close()
     elif args.command == "stop":
-        pass
+        data = { "command": "stop", "handler": args.handler }
+        dummy_conn.send(json.dumps(data).encode("utf-8"))
+        dummy_conn.close()
     elif args.command == "enable":
         pass
     elif args.command == "disable":

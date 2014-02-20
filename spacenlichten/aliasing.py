@@ -18,15 +18,7 @@ class AliasControl:
         self._bound_ipv6 = []
     
     def __del__(self):
-        while self._bound_ipv4:
-            (stored_ip, stored_prefix_len, stored_number) = self._bound_ipv4[0]
-            
-            self._ipv4_set_viface_down(stored_ip, stored_prefix_len)
-            
-        while self._bound_ipv6:
-            (stored_ip, stored_prefix_len) = self._bound_ipv6[0]
-            
-            self._ipv6_remove_alias(stored_ip, stored_prefix_len)
+        self.remove_all_aliases()
 
     def _ipv4_configure_viface(self, ip, prefix_len, number):
         result = -1
@@ -124,3 +116,14 @@ class AliasControl:
             self._ipv4_set_viface_down(ip, prefix_len)
         elif ip_version == 6:
             self._ipv6_remove_alias(ip, prefix_len)
+    
+    def remove_all_aliases(self):
+        while self._bound_ipv4:
+            (stored_ip, stored_prefix_len, stored_number) = self._bound_ipv4[0]
+            print(stored_ip)
+            self._ipv4_set_viface_down(stored_ip, stored_prefix_len)
+            
+        while self._bound_ipv6:
+            (stored_ip, stored_prefix_len) = self._bound_ipv6[0]
+            
+            self._ipv6_remove_alias(stored_ip, stored_prefix_len)

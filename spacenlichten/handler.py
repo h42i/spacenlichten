@@ -26,10 +26,15 @@ class Handler(threading.Thread):
         
         path = os.path.join(handlers_directory, config_filename)
         
+        self._handlers_directory = handlers_directory
+        self._config_filename = config_filename
+        self._port = port
+        
         try:
             with open(path, "r") as config_file:
                 config = yaml.load(config_file)
                 
+                self.name = config["name"]
                 self.ip = config["ip"]
                 self.script_path = config["script"]
                 
@@ -43,7 +48,7 @@ class Handler(threading.Thread):
         self._udp_server = udp.UDPServer(self.ip, port, self.receive)
         self._tcp_server = tcp.TCPServer(self.ip, port, self.receive)
         
-        self._stopped = False
+        self.stopped = False
     
     def _common_broadcast(self, string):
         self._udp_server._broadcast_sender(string)
@@ -61,9 +66,17 @@ class Handler(threading.Thread):
         self._udp_server.start()
         self._tcp_server.start()
         
-        while not self._stopped:
+        while not self.stopped:
             self._mod.run()
     
+    def recreate(self):
+        return Handler(self._handlers_directory,
+                       self._config_filename,
+                       self._port)
+    
     def terminate(self):
-        self._stopped = True
+        self.stopped = True
         self.join()
+        
+        self._udp_server.terminate()
+        self._tcp_server.terminate()

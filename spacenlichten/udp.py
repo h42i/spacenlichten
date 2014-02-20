@@ -73,7 +73,7 @@ class UDPServer(threading.Thread):
                     
                     logger.log("Invalid data. I will not bother the handler with this mess.")
                 
-                if dec_data != None:
+                if dec_data != None and dec_data != "":
                     try:
                         self._callback(dec_data, self._sender)
                     except:
@@ -106,12 +106,12 @@ class UDPServer(threading.Thread):
             
             try:
                 enc_data = encoding.encode_data(string)
-            except socket.error:
+            except:
                 logger.log("[UDP] Could not encode the string given by the handler.")
             
             try:
                 self._sock.sendto(enc_data, ("<broadcast>", self._port))
-            except socket.error:
+            except:
                 logger.log("[UDP] Could not broadcast data. We're fucked.")
     
     def terminate(self):

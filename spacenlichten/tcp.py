@@ -67,7 +67,7 @@ class TCPServer(threading.Thread):
                 self._conn_threads.append(conn_thread)
                 
                 conn_thread.start()
-            except socket.error:
+            except:
                 # uhm. well, fuck...
                 error = sys.exc_info()[0]
                 logger.log("[TCP] " + str(error))
@@ -85,10 +85,7 @@ class TCPServer(threading.Thread):
     
     def terminate(self):
         for conn_thread in self._conn_threads:
-            conn_thread.terminate()
-        
-        if self._sock != None:
-            self._sock.close()
+            conn_thread.join()
         
         self._stopped = True
         self.join()
@@ -116,15 +113,14 @@ class TCPServerConnection(threading.Thread):
             error = sys.exc_info()[0]
             logger.log("[TCP] Invalid data. I will not bother the handler with this mess.")
         
-        if dec_data != None:
+        if dec_data != None and dec_data != "":
             try:
                 self._callback(dec_data, self._sender)
-            except socket.error:
+            except:
                 error = sys.exc_info()[0]
                 logger.log("[TCP] Could not call the handler. Meh.")
         
         self._conn.close()
-        
         self._conn_threads.remove(self)
     
     def _sender(self, string):
@@ -135,11 +131,5 @@ class TCPServerConnection(threading.Thread):
         
         try:
             self._conn.send(enc_data)
-        except socket.error:
+        except:
             logger.log("[TCP] Could not send data. Mimimi!")
-    
-    def terminate(self):
-        self._conn.close()
-        self._conn_threads.remove(self)
-        
-        self.join()

@@ -51,7 +51,10 @@ if __name__ == "__main__":
     
     main_node.start()
     
-    while input() != "die":
+    try:
+        while input() != "die":
+            pass
+    except:
         pass
     
-    main_node.stop()
+    main_node.terminate()
