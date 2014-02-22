@@ -2,11 +2,12 @@ import os
 import yaml
 import threading
 
-import logger
 import aliasing
 import reflection
 import udp
 import tcp
+
+from logger import log
 
 class HandlerError(Exception):
     pass
@@ -21,14 +22,14 @@ class Handler(threading.Thread):
     script: path/to/handler.py
     """
     
-    def __init__(self, handlers_directory, config_filename, port):
+    def __init__(self, handlers_dir, config_filename, port):
         threading.Thread.__init__(self)
         
-        path = os.path.join(handlers_directory, config_filename)
-        
-        self._handlers_directory = handlers_directory
+        self._handlers_dir = handlers_dir
         self._config_filename = config_filename
         self._port = port
+        
+        path = os.path.join(self._handlers_dir, self._config_filename)
         
         try:
             with open(path, "r") as config_file:
@@ -39,11 +40,13 @@ class Handler(threading.Thread):
                 self.script_path = config["script"]
                 
                 if not os.path.isabs(self.script_path):
-                    self.script_path = os.path.join(handlers_directory, self.script_path)
+                    self.script_path = os.path.join(handlers_dir,
+                                                    self.script_path)
                 
                 self._mod = reflection._import_module(self.script_path)
         except:
-            raise HandlerError("Unable to use handler configuration file " + config_filename + "!")
+            log.critical("Unable to use handler config file %s.",
+                         config_filename)
         
         self._udp_server = udp.UDPServer(self.ip, port, self.receive)
         self._tcp_server = tcp.TCPServer(self.ip, port, self.receive)
@@ -61,7 +64,7 @@ class Handler(threading.Thread):
         self._mod.receive(json_string, send)
     
     def run(self):
-        logger.log("Starting a node server on " + self.ip + ".")
+        log.info("Starting a node server on %s.", self.ip)
         
         self._udp_server.start()
         self._tcp_server.start()
@@ -70,7 +73,7 @@ class Handler(threading.Thread):
             self._mod.run()
     
     def recreate(self):
-        return Handler(self._handlers_directory,
+        return Handler(self._handlers_dir,
                        self._config_filename,
                        self._port)
     

@@ -19,17 +19,19 @@ if __name__ == "__main__":
     
     args = arg_parser.parse_args()
     
-    dummy_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    dummy_conn.connect(("localhost", 3001))
+    ipc_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    ipc_conn.connect(("localhost", 3001))
     
     if args.command ==  "start":
         data = { "command": "start", "handler": args.handler }
-        dummy_conn.send(json.dumps(data).encode("utf-8"))
-        dummy_conn.close()
+        
+        ipc_conn.send(json.dumps(data).encode("utf-8"))
+        ipc_conn.close()
     elif args.command == "stop":
         data = { "command": "stop", "handler": args.handler }
-        dummy_conn.send(json.dumps(data).encode("utf-8"))
-        dummy_conn.close()
+        
+        ipc_conn.send(json.dumps(data).encode("utf-8"))
+        ipc_conn.close()
     elif args.command == "enable":
         pass
     elif args.command == "disable":

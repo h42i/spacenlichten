@@ -16,7 +16,9 @@ def decode_data(data):
     http_match = re.search("HTTP", first_line)
     
     if http_match:
-        http_strip_match = re.search("\r?\n(\r?\n)+", dec_data, re.MULTILINE)
+        http_strip_match = re.search("\r?\n(\r?\n)+",
+                                     dec_data,
+                                     re.MULTILINE)
         
         if http_strip_match:
             dec_data = dec_data[http_strip_match.end():]

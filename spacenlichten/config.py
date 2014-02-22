@@ -22,7 +22,9 @@ class Config:
             
             for field in ["port", "interface", "aliasing", "handlers"]:
                 if not field in config:
-                    raise ConfigError("Configuration field port is missing in " + os.path.abspath(path))
+                    raise ConfigError("Config field " + field +
+                                      " missing in " +
+                                      os.path.abspath(path))
             
             self.port = config["port"]
             self.interface = config["interface"]

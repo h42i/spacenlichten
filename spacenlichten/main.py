@@ -1,14 +1,10 @@
-import sys
-import os
-import argparse
-
-import node
-import aliasing
-import config
-import logger
-import reflection
-
 if __name__ == "__main__":
+    import sys
+    import os
+    import argparse
+    import logging
+    import logger
+    
     arg_parser = argparse.ArgumentParser(prog='spacenlichten',
                                          formatter_class=lambda prog:
                                              argparse.HelpFormatter(prog, max_help_position=42))
@@ -32,9 +28,36 @@ if __name__ == "__main__":
     
     args = arg_parser.parse_args()
     
-    logger.verbose = args.verbose
-    logger.log_path = args.log
+    # set up logging
+    log_formatter = logging.Formatter("%(asctime)s "
+                                      "[%(threadName)s]"
+                                      "[%(levelname)s] %(message)s")
+    root_logger = logging.getLogger()
     
+    root_logger.setLevel(logging.DEBUG)
+    
+    if args.log != None:
+        file_handler = logging.FileHandler(os.path.abspath(args.log))
+        file_handler.setFormatter(log_formatter)
+        
+        root_logger.addHandler(file_handler)
+    
+    if args.verbose:
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(log_formatter)
+        
+        root_logger.addHandler(console_handler)
+    
+    logger.set_logger(root_logger)
+    
+    # now begin with the real stuff
+    import node
+    import aliasing
+    import config
+    import logger
+    import reflection
+    
+    # read in the spacenlichten config
     main_config = config.Config(args.config)
     
     selected_interface_tool = None

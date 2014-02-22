@@ -9,10 +9,10 @@ import ipaddress
 import functools
 import json
 
-
-import logger
 import aliasing
 import handler
+
+from logger import log
 
 IPC_HOST = "localhost"
 IPC_PORT = 3001
@@ -26,20 +26,23 @@ class Node(threading.Thread):
     Node server managing the different handlers.
     """
     
-    def __init__(self, port, interface, interface_tool, handlers_directory):
+    def __init__(self, port, interface, interface_tool, handlers_dir):
         threading.Thread.__init__(self)
+        
+        self.name = "node"
         
         self._port = port
         self._interface = interface
         self._interface_tool = interface_tool
-        self._handlers_directory = os.path.abspath(handlers_directory)
+        self._handlers_dir = os.path.abspath(handlers_dir)
         
         self._alias_control = aliasing.AliasControl(self._interface,
                                                     self._interface_tool)
         
         self._handlers = []
         
-        self._ipc_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._ipc_sock = socket.socket(socket.AF_INET,
+                                       socket.SOCK_STREAM)
         self._ipc_sock.bind((IPC_HOST, IPC_PORT))
         self._ipc_sock.listen(1)
         
@@ -47,16 +50,23 @@ class Node(threading.Thread):
         
         self._stopped = False
         
-        for config_filename in os.listdir(self._handlers_directory):
+        for config_filename in os.listdir(self._handlers_dir):
             if config_filename.endswith(".handler"):
-                new_handler = handler.Handler(self._handlers_directory,
+                new_handler = handler.Handler(self._handlers_dir,
                                               config_filename,
                                               self._port)
                 
-                self._handlers.append(new_handler)
+                log.info("Aliasing ip %s.", new_handler.ip)
                 
-                logger.log("Aliasing ip " + new_handler.ip + ".")
-                self._alias_control.add_alias(new_handler.ip, 8)
+                try:
+                    self._alias_control.add_alias(new_handler.ip, 8)
+                    
+                    self._handlers.append(new_handler)
+                except:
+                    log.critical("Could not create alias for %s. The "
+                                 "associated handler will not start. "
+                                 "Are you root?",
+                                 new_handler.ip)
     
     def __del__(self):
         self.stop_all_handlers()
@@ -70,7 +80,8 @@ class Node(threading.Thread):
             
             try:
                 # one recv should be enough for all data; yolo
-                data = json.loads(conn.recv(IPC_BUFFER_SIZE).decode("utf-8"))
+                json_string = conn.recv(IPC_BUFFER_SIZE).decode("utf-8")
+                data = json.loads(json_string)
                 
                 if data["command"] == "start":
                     self.start_handler(data["handler"])
@@ -92,7 +103,7 @@ class Node(threading.Thread):
         for handler in self._handlers:
             if handler.name == handler_name:
                 try:
-                    logger.log("Starting " + handler.name + ".")
+                    log.info("Starting %s.", handler.name)
                     
                     if handler.stopped:
                         handler = handler.recreate()
@@ -100,12 +111,13 @@ class Node(threading.Thread):
                     handler.start()
                     handler.initialize()
                 except RuntimeError:
-                    logger.log(handler.name + " is already running.")
+                    log.warning("%s is already running.",
+                                handler.name)
     
     def start_all_handlers(self):
         for handler in self._handlers:
             try:
-                logger.log("Starting " + handler.name + ".")
+                log.info("Starting %s.", handler.name)
                 
                 if handler.stopped:
                     handler = handler.recreate()
@@ -113,7 +125,7 @@ class Node(threading.Thread):
                 handler.start()
                 handler.initialize()
             except RuntimeError:
-                logger.log(handler.name + " is already running.")
+                log.warning("%s is already running.", handler.name)
     
     def _dummy_connect_tcp(self, host, port):
         dummy_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -129,7 +141,7 @@ class Node(threading.Thread):
     def stop_handler(self, handler_name):
         for handler in self._handlers:
             if handler.name == handler_name and not handler.stopped:
-                logger.log("Stopping " + handler.name + ".")
+                log.info("Stopping %s.", handler.name)
                 
                 handler.terminate()
                 
@@ -140,7 +152,7 @@ class Node(threading.Thread):
     def stop_all_handlers(self):
         for handler in self._handlers:
             if not handler.stopped:
-                logger.log("Stopping " + handler.name + ".")
+                log.info("Stopping %s.", handler.name)
                 
                 handler.terminate()
                 
