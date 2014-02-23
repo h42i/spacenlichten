@@ -213,4 +213,4 @@ class Node(threading.Thread):
         if self.is_alive():
             self.join()
         
-        self._dummy_connect(IPC_HOST, IPC_PORT)
+        self._dummy_connect("localhost", IPC_PORT)
