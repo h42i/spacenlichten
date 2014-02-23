@@ -32,9 +32,13 @@ class TCPServer(threading.Thread):
         
         self._conn_threads = []
         
-        self._stopped = False
+        self._stopped = True
     
     def run(self):
+        log.info("Starting.")
+        
+        self._stopped = False
+        
         try:
             if self._ip_version == 4:
                 addr_info = socket.getaddrinfo(self._ip,
@@ -108,12 +112,23 @@ class TCPServer(threading.Thread):
                     log.error("Could not send data to client while "
                               "broadcasting.")
     
+    def _dummy_connect(self, host, port):
+        dummy_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        dummy_conn.connect((host, port))
+        dummy_conn.send("".encode("utf-8"))
+        dummy_conn.close()
+    
     def terminate(self):
         for conn_thread in self._conn_threads:
             conn_thread.join()
         
         self._stopped = True
-        self.join()
+        
+        if self.is_alive():
+            self.join()
+        
+        # signal the thread to wake up from blocking call
+        self._dummy_connect(self._ip, self._port)
 
 class TCPServerConnection(threading.Thread):
     def __init__(self, conn_threads, conn, callback):

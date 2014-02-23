@@ -28,5 +28,5 @@ class Config:
             
             self.port = config["port"]
             self.interface = config["interface"]
-            self.interface_tool = config["aliasing"]
-            self.handlers_directory = config["handlers"]
+            self.aliasing = config["aliasing"]
+            self.handlers= config["handlers"]

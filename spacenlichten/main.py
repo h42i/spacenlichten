@@ -62,15 +62,15 @@ if __name__ == "__main__":
     
     selected_interface_tool = None
     
-    if main_config.interface_tool == "ip":
+    if main_config.aliasing == "ip":
         selected_interface_tool = aliasing.IP
-    elif main_config.interface_tool == "ifconfig":
+    elif main_config.aliasing == "ifconfig":
         selected_interface_tool = aliasing.IFCONFIG
     
     main_node = node.Node(main_config.port,
                           main_config.interface,
                           selected_interface_tool,
-                          main_config.handlers_directory)
+                          main_config.handlers)
     
     main_node.start()
     

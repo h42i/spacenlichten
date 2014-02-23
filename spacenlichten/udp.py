@@ -31,9 +31,13 @@ class UDPServer(threading.Thread):
         self._sock = None
         self._cur_addr = None
         
-        self._stopped = False
+        self._stopped = True
     
     def run(self):
+        log.info("Starting.")
+        
+        self._stopped = False
+        
         try:
             if self._ip_version == 4:
                 addr_info = socket.getaddrinfo(self._ip,
@@ -72,7 +76,7 @@ class UDPServer(threading.Thread):
                 log.critical("IP version not supported.")
                 self._stopped = True
         except socket.error:
-            logging.critical("No socket for you. Sockets are out.")
+            log.critical("No socket for you. Sockets are out.")
             self._stopped = True
         except:
             log.critical("Something really went wrong.")
@@ -82,7 +86,7 @@ class UDPServer(threading.Thread):
             try:
                 data, self._cur_addr = self._sock.recvfrom(UDP_BUFFER_SIZE)
                 
-                log.info("Incomingn data from %s", self._cur_addr)
+                log.info("Incoming data from %s", self._cur_addr[0])
                 
                 dec_data = None
                 
@@ -136,6 +140,15 @@ class UDPServer(threading.Thread):
             except:
                 log.info("Could not broadcast data.")
     
+    def _dummy_connect(self, host, port):
+        dummy_conn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        dummy_conn.sendto("".encode("utf-8"), (host, port))
+    
     def terminate(self):
         self._stopped = True
-        self.join()
+        
+        if self.is_alive():
+            self.join()
+        
+        # signal the thread to wake up from blocking call
+        self._dummy_connect(self._ip, self._port)

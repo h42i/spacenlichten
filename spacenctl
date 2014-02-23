@@ -1,12 +1,14 @@
 #!/usr/bin/python
-import sys
-import os
-import argparse
-import subprocess
-import socket
-import json
-
 if __name__ == "__main__":
+    import sys
+    import os
+    import argparse
+    import subprocess
+    import socket
+    import json
+
+    from subprocess import call
+    
     arg_parser = argparse.ArgumentParser(prog='spacenctl',
                                          formatter_class=lambda prog:
                                              argparse.HelpFormatter(prog, max_help_position=42))
@@ -17,24 +19,77 @@ if __name__ == "__main__":
     arg_parser.add_argument("handler",
                             help="handler on which the command is executed")
     
+    arg_parser.add_argument("-s",
+                            "--server",
+                            help="server of a spacenlichten node",
+                            action="store",
+                            default="localhost")
+    
     args = arg_parser.parse_args()
     
-    ipc_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ipc_conn.connect(("localhost", 3001))
+    IPC_HOST = args.server
+    IPC_PORT = 3001
+    IPC_BUFFER_SIZE = 2**10
+    
+    ACTIVE_DIR_NAME = ".active"
+    
+    def send_req(request_data):
+        ipc_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ipc_conn.connect((IPC_HOST, IPC_PORT))
+        ipc_conn.send(json.dumps(request_data).encode("utf-8"))
+        ipc_conn.close()
+    
+    def send_req_get_resp(request_data):
+        ipc_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ipc_conn.connect((IPC_HOST, IPC_PORT))
+        ipc_conn.send(json.dumps(request_data).encode("utf-8"))
+        
+        response_data = json.loads(ipc_conn.recv(IPC_BUFFER_SIZE).decode("utf-8"))
+        
+        ipc_conn.close()
+        
+        return response_data
     
     if args.command ==  "start":
-        data = { "command": "start", "handler": args.handler }
-        
-        ipc_conn.send(json.dumps(data).encode("utf-8"))
-        ipc_conn.close()
+        send_req({ "command": "start", "handler": args.handler })
     elif args.command == "stop":
-        data = { "command": "stop", "handler": args.handler }
-        
-        ipc_conn.send(json.dumps(data).encode("utf-8"))
-        ipc_conn.close()
+        send_req({ "command": "stop", "handler": args.handler })
     elif args.command == "enable":
-        pass
+        response_data = send_req_get_resp({ "command": "handlers_dir" })
+        
+        active_dir = os.path.join(response_data["handlers_dir"],
+                                  ACTIVE_DIR_NAME)
+        
+        if not os.path.exists(active_dir):
+            call(["mkdir", active_dir])
+        
+        link_source = os.path.join(response_data["handlers_dir"],
+                                   args.handler + ".handler")
+        link_destination = os.path.join(response_data["handlers_dir"],
+                                        ACTIVE_DIR_NAME,
+                                        args.handler + ".handler")
+        
+        call(["ln", "-s", link_source, link_destination])
+        
+        send_req({ "command": "enable", "handler": args.handler })
     elif args.command == "disable":
-        pass
+        response_data = send_req_get_resp({ "command": "handlers_dir" })
+        
+        active_dir = os.path.join(response_data["handlers_dir"],
+                                  ACTIVE_DIR_NAME)
+        
+        if os.path.exists(active_dir):
+            link = os.path.join(response_data["handlers_dir"],
+                                ACTIVE_DIR_NAME,
+                                args.handler + ".handler")
+            
+            call(["rm", link])
+            
+            send_req({ "command": "disable", "handler": args.handler })
+    elif args.command == "status":
+        response_data = send_req_get_resp({ "command": "status",
+                                            "handler": args.handler })
+        
+        print(response_data["status"])
     else:
         print("unknown command")

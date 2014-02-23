@@ -8,12 +8,12 @@ class AliasError(Exception):
     pass
 
 class AliasControl:
-    def __init__(self, iface, iface_tool=IP):
-        self._iface = iface
-        self._iface_tool = iface_tool
+    def __init__(self, interface, interface_tool=IP):
+        self._interface = interface
+        self._interface_tool = interface_tool
         
         self._bound_ipv4 = []
-        self._viface_counter = 1
+        self._vinterface_counter = 1
         
         self._bound_ipv6 = []
     
@@ -23,22 +23,23 @@ class AliasControl:
     def _ipv4_configure_viface(self, ip, prefix_len, number):
         result = -1
         
-        if self._iface_tool == IFCONFIG:
-            result = call(["ifconfig", self._iface + ":" + str(number),
+        if self._interface_tool == IFCONFIG:
+            result = call(["ifconfig",
+                           self._interface + ":" + str(number),
                            ip + "/" + str(prefix_len)])
-        elif self._iface_tool == IP:
+        elif self._interface_tool == IP:
             result = call(["ip",
                            "addr",
                            "add",
                            ip + "/" + str(prefix_len),
                            "dev",
-                           self._iface,
+                           self._interface,
                            "label",
-                           self._iface + ":" + str(number)])
+                           self._interface + ":" + str(number)])
         
         if result != 0:
             raise AliasError("Could not configure virtual interface " +
-                             self._iface + ":" + str(number) + ".")
+                             self._interface + ":" + str(number) + ".")
         else:
             self._bound_ipv4.append((ip, prefix_len, number))
 
@@ -49,12 +50,12 @@ class AliasControl:
                 (stored_ip, stored_prefix_len, stored_number) = ipv4_alias
                 
                 if stored_ip == ip and stored_prefix_len == prefix_len:
-                    if self._iface_tool == IFCONFIG:
+                    if self._interface_tool == IFCONFIG:
                         result = call(["ifconfig",
-                                       self._iface + ":" +
+                                       self._interface + ":" +
                                        str(stored_number),
                                        "up"])
-                    elif self._iface_tool == IP:
+                    elif self._interface_tool == IP:
                         # nothing to do, it's just one step with ip.
                         result = 0
         
@@ -69,20 +70,20 @@ class AliasControl:
                 (stored_ip, stored_prefix_len, stored_number) = ipv4_alias
                 
                 if stored_ip == ip and stored_prefix_len == prefix_len:
-                    if self._iface_tool == IFCONFIG:
+                    if self._interface_tool == IFCONFIG:
                         result = call(["ifconfig",
-                                       self._iface + ":" +
+                                       self._interface + ":" +
                                        str(stored_number),
                                        "down"])
-                    elif self._iface_tool == IP:
+                    elif self._interface_tool == IP:
                         result = call(["ip",
                                        "addr",
                                        "del",
                                        ip + "/" + str(prefix_len),
                                        "dev",
-                                       self._iface,
+                                       self._interface,
                                        "label",
-                                       self._iface + ":" +
+                                       self._interface + ":" +
                                        str(stored_number)])
                     
                     if result == 0:
@@ -96,47 +97,47 @@ class AliasControl:
     def _ipv6_add_alias(self, ip, prefix_len):
         result = -1
         
-        if self._iface_tool == IFCONFIG:
+        if self._interface_tool == IFCONFIG:
             result = call(["ifconfig",
-                           self._iface,
+                           self._interface,
                            "inet6",
                            "add",
                            ip + "/" + str(prefix_len)])
-        elif self._iface_tool == IP:
+        elif self._interface_tool == IP:
             result = call(["ip",
                            "-6",
                            "addr",
                            "add",
                            ip + "/" + str(prefix_len),
                            "dev",
-                           self._iface])
+                           self._interface])
             
         if result != 0:
             raise AliasError("Could not add alias to interface " +
-                             self._iface + ".")
+                             self._interface + ".")
         else:
             self._bound_ipv6.append((ip, prefix_len))
 
     def _ipv6_remove_alias(self, ip, prefix_len):
         result = -1
         
-        if self._iface_tool == IFCONFIG:
+        if self._interface_tool == IFCONFIG:
             result = call(["ifconfig",
-                           self._iface,
+                           self._interface,
                            "inet6",
                            "del",
                            ip + "/" + str(prefix_len)])
-        elif self._iface_tool == IP:
+        elif self._interface_tool == IP:
             result = call(["ip",
                            "-6",
                            "addr",
                            "del",
                            ip + "/" + str(prefix_len),
-                           "dev", self._iface])
+                           "dev", self._interface])
             
         if result != 0:
             raise AliasError("Could not remove alias from interface " +
-                             self._iface + ".")
+                             self._interface + ".")
         else:
             for ipv6_alias in self._bound_ipv6:
                 (stored_ip, stored_prefix_len) = ipv6_alias
@@ -150,10 +151,10 @@ class AliasControl:
         if ip_version == 4:
             self._ipv4_configure_viface(ip,
                                         prefix_len,
-                                        self._viface_counter)
+                                        self._vinterface_counter)
             self._ipv4_set_viface_up(ip, prefix_len)
             
-            self._viface_counter = self._viface_counter + 1
+            self._vinterface_counter = self._vinterface_counter + 1
         elif ip_version == 6:
             self._ipv6_add_alias(ip, prefix_len)
     

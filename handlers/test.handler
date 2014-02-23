@@ -1,3 +1,2 @@
-name: test
 ip: 10.23.42.133
 script: script.py

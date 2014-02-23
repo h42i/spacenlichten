@@ -35,7 +35,7 @@ class Handler(threading.Thread):
             with open(path, "r") as config_file:
                 config = yaml.load(config_file)
                 
-                self.name = config["name"]
+                self.name = os.path.splitext(self._config_filename)[0]
                 self.ip = config["ip"]
                 self.script_path = config["script"]
                 
@@ -51,7 +51,7 @@ class Handler(threading.Thread):
         self._udp_server = udp.UDPServer(self.ip, port, self.receive)
         self._tcp_server = tcp.TCPServer(self.ip, port, self.receive)
         
-        self.stopped = False
+        self._stopped = True
     
     def _common_broadcast(self, string):
         self._udp_server._broadcast_sender(string)
@@ -64,12 +64,14 @@ class Handler(threading.Thread):
         self._mod.receive(json_string, send)
     
     def run(self):
-        log.info("Starting a node server on %s.", self.ip)
+        log.info("Starting a servers on %s.", self.ip)
         
         self._udp_server.start()
         self._tcp_server.start()
         
-        while not self.stopped:
+        self._stopped = False
+        
+        while not self._stopped:
             self._mod.run()
     
     def recreate(self):
@@ -78,8 +80,10 @@ class Handler(threading.Thread):
                        self._port)
     
     def terminate(self):
-        self.stopped = True
-        self.join()
+        self._stopped = True
+        
+        if self.is_alive():
+            self.join()
         
         self._udp_server.terminate()
         self._tcp_server.terminate()
